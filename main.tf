@@ -31,7 +31,7 @@ resource "aws_eip" "ngw" {
 
 resource "aws_nat_gateway" "ngw" {
   count      = length(local.public_subnet_ids)
-  allocation_id = element(aws_eip.ngw,*,id, count.index)
+  allocation_id = element(aws_eip.ngw.*.id, count.index)
   subnet_id     = element(local.public_subnet_ids, count.index)
 }
 
